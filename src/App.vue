@@ -1,4 +1,7 @@
 <script setup>
+import { remove } from '@vue/shared';
+
+
 const produtos = [
     {
         id: 1,
@@ -54,10 +57,13 @@ const produtos = [
 
 </script>
 <template>
- <input type="text" v-model="novoItem">
-  <button @click="adicionar">Adicionar</button>
-  <ul>
-    <li v-for="item in listaCompras">{{ item }}</li>
+   <ul>
+    <li v-for="item in produtos" :key="item.id">
+      <p>{{ item.name }}</p>
+      <p>Detalhes</p>
+      <p v-for="(value, key) in item.details" :key="key">{{ key }}: {{ value }}</p>
+    </li>
   </ul>
- <p></p>
+
+
 </template>
