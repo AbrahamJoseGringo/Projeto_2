@@ -59,9 +59,9 @@ const produtos = [
 <template>
    <ul>
     <li v-for="item in produtos" :key="item.id">
-      <p>{{ item.name }}</p>
-      <p>Detalhes</p>
-      <p v-for="(value, key) in item.details" :key="key">{{ key }}: {{ value }}</p>
+      <p>{{ item.nome }}</p>
+      <p>R$ {{ item.preco }}</p>
+      <p> {{  }}</p>
     </li>
   </ul>
 
