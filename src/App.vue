@@ -1,6 +1,4 @@
 <script setup>
-import { remove } from '@vue/shared';
-
 
 const produtos = [
     {
@@ -56,33 +54,34 @@ const produtos = [
 ]
 
 export default {
+    const carrinho= []:
   data() {
     return {
-      carrinho: {
+     carrinho: {
         items: [],
         total: 0
       },
       produtos
-    };
-  },
+  }
   methods: {
-    adicionarProduto(produto) {
-      let itemCarrinho = this.carrinho.items.find(item => item.id === produto.id);
-
+    adicionarProduto(produtos) {
+      const itemCarrinho = this.carrinho.items.find(item => item.id === produtos.id);
+     
       if (itemCarrinho) {
         itemCarrinho.quantidade++;
         itemCarrinho.valorTotal = itemCarrinho.preco * itemCarrinho.quantidade;
-      } else {
-        itemCarrinho = {
-          ...produto,
+      } 
+      else {
+        const novoItem = {
+          produtos,
           quantidade: 1,
-          valorTotal: produto.preco
+          valorTotal: produtos.preco
         };
-        this.carrinho.items.push(itemCarrinho);
+        this.carrinho.items.push(novoItem);
       }
 
       this.carrinho.total += produto.preco;
-    },
+    }
     incrementarQuantidade(index) {
       const item = this.carrinho.items[index];
       item.quantidade++;
@@ -90,17 +89,24 @@ export default {
       this.carrinho.total += item.preco;
     },
     decrement(item) {
-  const index = this.carrinho.items.findIndex((i) => i.id === item.id);
+      const index = this.carrinho.items.findIndex(i => i.id === item.id);
 
-  if (this.carrinho.items[index].quantidade > 1) {
-    this.carrinho.items[index].quantidade--;
-    this.carrinho.items[index].valorTotal = this.carrinho.items[index].preco * this.carrinho.items[index].quantidade;
-    this.carrinho.total -= this.carrinho.items[index].preco;} 
-    else {
-    this.remove(item);}
-}
+      if (this.carrinho.items[index].quantidade > 1) {
+        this.carrinho.items[index].quantidade--;
+        this.carrinho.items[index].valorTotal = this.carrinho.items[index].preco * this.carrinho.items[index].quantidade;
+        this.carrinho.total -= this.carrinho.items[index].preco;
+      } else {
+        this.remove(item);
+      }
+    },
+    remove(item) {
+      const index = this.carrinho.items.findIndex(i => i.id === item.id);
+      const quantidade = this.carrinho.items[index].quantidade;
+      this.carrinho.items.splice(index, 1);
+      this.carrinho.total -= item.preco * quantidade;
+    }
   }
-  
+};
 
 </script>
 <template>
